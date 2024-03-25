@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    include ./partials/nav
+    h1= title
+    form(action="/blogs/"+blog._id+"/edit" method="post")
+        .mb-3.mt-3
+            label.form-label(for="blogtitle") Blog Title
+            input#blogtitle.form-control(type="text", placeholder="Blog Title", name="blogtitle", value=blog.blogtitle)
+        .mb-3
+            label.form-label(for="blogtext") Blog Text
+            textarea#blogtext.form-control(name="blogtext", cols="30", rows="10")= blog.blogtext
+        button.btn.btn-primary(type="submit") Submit

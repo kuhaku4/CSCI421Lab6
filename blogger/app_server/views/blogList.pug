@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  include ./partials/nav
+  h1= title
+  if blogs
+    each blog in blogs
+      if blog._id
+        .card
+          .card-body
+            h4.card-title= blog.blogtitle
+            p.card-text= blog.blogtext
+            p.card-text= blog.createdDate
+            ul.nav.nav-pills.justify-content-end
+              li.nav-item 
+                a.nav-link(href="/blogs/" + blog._id + "/edit")
+                  i.bi.bi-pencil-square 
+                  span Edit
+              li.nav-item
+                a.nav-link(href="/blogs/" + blog._id +"/delete")
+                  i.bi.bi-trash3
+                  span Delete

@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  include ./partials/nav
+  h1 Add a Blog
+  form(method="post" action="/blogs/add")
+    label(for="blogtitle") Blog Title:
+    br
+    input(type="text" id="blogtitle" name="blogtitle" required)
+    br
+    label(for="blogtext") Blog Text:
+    br
+    textarea(id="blogtext" name="blogtext" rows="4" cols="50" required)
+    br
+    button(type="submit") Add Blog
