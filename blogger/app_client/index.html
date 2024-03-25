@@ -23,7 +23,7 @@
                 <h5 class="card-title">{{blog.createdDate | date:'medium'}}</h5>
             </div>
             <div class="card-body bg-dark">
-                <h6 class="text-secondary bg-dark card-subtitle mb-2" style="font-size: 24px; font-weight: bold;">{{blog.blogtitle}}</h6>
+                <h6 class="text-secondary bg-dark card-subtitle mb-2" style="font-size: 24px; font-weight: 900;">{{blog.blogtitle}}</h6>
                 <p class="text-secondary bg-dark card-text" style="font-size: 16px;">{{blog.blogtext}}</p>
             </div>
             <div class="card-footer bg-dark">
@@ -50,11 +50,11 @@
         <div class="form-group">
           <label for="summary" class="text-seconday">Blog Title</label>
           <!-- Use ng-model to bind the input value to vm.blog.title -->
-          <input class="text-secondary bg-dark form-control" id="title" name="title" ng-model="vm.blog.title">
+          <input class="text-light bg-dark form-control" id="title" name="title" ng-model="vm.blog.title">
 
           <label for="text" class="text-seconadry">Blog Text</label>
           <!-- Use ng-model to bind the textarea value to vm.blog.text -->
-          <textarea class="text-secondary bg-dark form-control" id="text" name="text" rows="3" ng-model="vm.blog.text"></textarea>
+          <textarea class="text-light bg-dark form-control" id="text" name="text" rows="3" ng-model="vm.blog.text"></textarea>
 
           <!-- Use ng-disabled to disable the submit button if the form is invalid -->
           <button class="btn btn-light text-secondary bg-dark" type="submit" ng-disabled="userForm.$invalid">Submit</button>
@@ -68,11 +68,11 @@
     <div class="text-secondary bg-dark card border-dark" style="width: 50%">  
       <form name="userForm" ng-submit="vm.submit()" ng-controller="EditController" style="padding: 20px">
         <div class="text-secondary bg-dark form-group">
-          <label for="summary" class="text-secondary bg-dark text-primary">Blog Title</label>
-          <input class="text-secondary bg-dark form-control" id="title" name="title" ng-model="vm.blog.blogtitle">
+          <label for="summary" class="text-secondary bg-dark">Blog Title</label>
+          <input class="text-light bg-dark form-control" id="title" name="title" ng-model="vm.blog.blogtitle">
 
-          <label for="detail" class="text-secondary bg-dark text-primary">Blog Text</label>
-          <textarea class="text-secondary bg-dark form-control" id="text" name="text" rows="3" ng-model="vm.blog.blogtext"></textarea>
+          <label for="detail" class="text-secondary bg-dark">Blog Text</label>
+          <textarea class="text-light bg-dark form-control" id="text" name="text" rows="3" ng-model="vm.blog.blogtext"></textarea>
 
           <!-- Use ng-disabled to disable the submit button if the form is invalid -->
           <button class="btn btn-light text-secondary bg-dark" type="submit" ng-disabled="userForm.$invalid">Update</button>
