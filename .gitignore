@@ -14,3 +14,4 @@ stack
 .viminfo
 .wget-hsts
 nohup.out
+.gitconfig
