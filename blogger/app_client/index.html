@@ -8,7 +8,9 @@
   <script src="/js/bloggerApp.js"></script>
   <script src="/auth/authentication.js"></script>
   <script src="/nav/navigation.js"></script>
+</head>
   
+  <body>
   <!-- Angular Templates -->
   <script type="text/ng-template" id="pages/home.html">
     <p></p>
@@ -99,11 +101,20 @@
              <button ng-click="vm.cancel()" ng-controller="DeleteController" class="btn btn-primary float-right" style="margin-top: 15px">Cancel</button></form>
       </div>
   </script>
-</head>
 
-<div ng-controller="NavigationController">
-  <navigation></navigation>
-</div>
+  <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-primary">
+    <a class="navbar-brand" style="margin-left: 10px;" href="/">MyBlog</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav flex-grow-1">
+            <a class="nav-item nav-link active" href="#!/blogList">List Blogs</a>
+            <a class="nav-item nav-link active" href="#!/blogAdd">Add Blog</a>
+        </div>
+        <div class="navbar-nav">
+            <a ng-show="!navvm.isLoggedIn()" style="margin-right: 10px;" class="nav-item nav-link active ml-auto" href="#!/signOn">Sign In</a>
+            <a ng-show="navvm.isLoggedIn()" style="margin-right: 10px;" class="nav-item nav-link active" href="" ng-click="navvm.logout()">Logout <small>({{ navvm.currentUser().email }})</small></a>
+        </div>
+    </div>
+  </nav>
 
 <!-- Angular View -->
   <div ng-view></div>
