@@ -15,20 +15,29 @@ app.service('authentication', authentication);
           return token;
       };
 
-        var register = function(user) {
-            console.log('Registering user ' + user.email + ' ' + user.password);
-            return $http.post('/api/register', user).then(function(data){
-              saveToken(data.data.token);
-          });
-        };
+      var register = function(user) {
+        console.log('Registering user ' + user.email + ' ' + user.password);
+        return $http.post('/api/register', user).then(function(data){
+          saveToken(data.data.token);
+          console.log('Registration successful');
+          return data;
+        }, function(err){
+          console.log('Error registering:', err);
+          throw err;
+        });
+      };
 
-        var login = function(user) {
-           console.log('Attempting to login user ' + user.email + ' ' + user.password);
-            return $http.post('/api/login', user).then(function(data) {
-
-              saveToken(data.data.token);
-           });
-        };
+      var login = function(user) {
+        console.log('Attempting to login user ' + user.email + ' ' + user.password);
+        return $http.post('/api/login', user).then(function(data) {
+          saveToken(data.data.token);
+          console.log('Login successful');
+          return data;
+        }, function(err){
+          console.log('Error logging in:', err);
+          throw err;
+        });
+      };
 
         var logout = function() {
             console.log("Logging out");
@@ -84,6 +93,7 @@ app.controller('LoginController', ['$location', 'authentication', function Login
     vm.returnPage = $location.search().page || '/';
 
     vm.onSubmit = function () {
+        console.log('Form submitted');
         vm.formError = "";
         if (!vm.credentials.email || !vm.credentials.password) {
           vm.formError = "All fields required, please try again";
@@ -121,6 +131,7 @@ app.controller('RegisterController', ['$location', 'authentication', function Re
     };
 
     vm.onSubmit = function () {
+        console.log('Form submitted');
         vm.formError = "";
         if (!vm.credentials.name || !vm.credentials.email || !vm.credentials.password) {
           vm.formError = "All fields required, please try again";
