@@ -3,7 +3,7 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var ctrlBlogs = require('../controllers/blogs');
 require('dotenv').config();
-const crtlAuth = require('../controllers/authenticate');
+const crtlAuth = require('../controllers/authMiddleware');
 
 var auth = jwt({
     secret: process.env.JWT_SECRET,
