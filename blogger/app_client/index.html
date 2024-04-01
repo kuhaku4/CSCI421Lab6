@@ -5,7 +5,12 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' />
+  <script src="/js/bloggerApp.js"></script>
+  <script src="/auth/authentication.js"></script>
+  <script src="/nav/navigation.js"></script>
+</head>
   
+  <body>
   <!-- Angular Templates -->
   <script type="text/ng-template" id="pages/home.html">
     <p></p>
@@ -96,23 +101,13 @@
              <button ng-click="vm.cancel()" ng-controller="DeleteController" class="btn btn-primary float-right" style="margin-top: 15px">Cancel</button></form>
       </div>
   </script>
-</head>
 
-<body style="background-color:gray;">
-    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-black">
-        <a class="navbar-brand" style="margin-left: 10px;"  href="/">MyBlog</a>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-item nav-link active" href="#!/blogs">List Blogs</a>
-              <a class="nav-item nav-link active" href="#!/blogs/add">Add Blog</a>
-            </div>
-        </div>
-      </nav>
+  <div ng-controller="NavigationController">
+    <navigation></navigation>
+  </div>
 
 <!-- Angular View -->
   <div ng-view></div>
-
-  <script src="/js/bloggerApp.js"></script>
 
 </body>
 </html>

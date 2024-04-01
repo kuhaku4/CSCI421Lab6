@@ -4,10 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('./app_api/models/db');
+var passport = require('passport');
 
 
 //var routes = require('./app_server/routes/index');
 var routesAPI = require('./app_api/routes/index');
+require('./app_api/config/passport');
 
 var app = express();
 
@@ -26,6 +28,8 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redi
 app.use('/jq', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 app.use('/icons', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')))
+
+app.use(passport.initialize());
 
 //app.use('/', routes);
 app.use('/api', routesAPI);

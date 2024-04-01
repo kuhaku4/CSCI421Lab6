@@ -1,6 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var ctrlBlogs = require('../controllers/blogs');
+var ctrlAuth = require('../controller/authentication');
+require('dotenv').config();
+var jwt = require('express-jwt');
+
+var auth = jwt({
+    secret: process.env.JWT_SECRET,
+    userProperty: 'payload'
+});
+
 
 router.get('/blogs', ctrlBlogs.blogsList);
 
