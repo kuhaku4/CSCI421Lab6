@@ -99,12 +99,11 @@ app.controller('LoginController', ['$location', 'authentication', function Login
       authentication
         .login(vm.credentials)
         .then(function(){
-          $location.path('blogList');
+          $location.path('blogs');
         }
         , (function(err){
           var obj = err;
           console.log(obj.message);
-          //vm.formError = obj.message;
           vm.formError = "Login failed. Email or password maybe incorrect.";
         }));
     };
@@ -138,7 +137,7 @@ app.controller('RegisterController', ['$location', 'authentication', function Re
       authentication
         .register(vm.credentials)
         .then(function(){
-          $location.path('blogList');
+          $location.path('blogs');
         }
         , (function(err){
           vm.formError = "Error registering. Try again with a different email address."
