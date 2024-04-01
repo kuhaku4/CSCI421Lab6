@@ -1,15 +1,27 @@
 var express = require('express');
 var router = express.Router();
 var ctrlBlogs = require('../controllers/blogs');
+require('dotenv').config();
+const crtlAuth = require('../controllers/authernticate');
+var jwt = require('express-jwt');
+
+var auth = jwt({
+    secret: process.env.JWT_SECRET,
+    userProperty: 'payload'
+});
 
 router.get('/blogs', ctrlBlogs.blogsList);
 
-router.post('/blogs/add', ctrlBlogs.blogsCreate);
+router.post('/blogs/add', auth, ctrlBlogs.blogsCreate);
 
 router.get('/blogs/:blogid', ctrlBlogs.blogsReadOne);
 
-router.put('/blogs/:blogid', ctrlBlogs.blogsUpdate);
+router.put('/blogs/:blogid', auth, ctrlBlogs.blogsUpdate);
 
-router.delete('/blogs/:blogid', ctrlBlogs.blogsDelete);
+router.delete('/blogs/:blogid', auth, ctrlBlogs.blogsDelete);
+
+router.post('register', crtlAuth.register);
+
+router.post('login', crtlAuth.login);
 
 module.exports = router;
