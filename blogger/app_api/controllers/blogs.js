@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Blog = mongoose.model('Blog')
-//const authjwt = require('./authjwt');
+const authjwt = require('./authjwt');
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
