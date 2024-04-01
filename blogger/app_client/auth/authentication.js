@@ -84,14 +84,15 @@ app.controller('LoginController', ['$location', 'authentication', function Login
     vm.returnPage = $location.search().page || '/';
 
     vm.onSubmit = function () {
-      vm.formError = "";
-      if (!vm.credentials.email || !vm.credentials.password) {
-           vm.formError = "All fields required, please try again";
-        return false;
-      } else {
-           vm.doLogin();
-      }
-    };
+        vm.formError = "";
+        if (!vm.credentials.email || !vm.credentials.password) {
+          vm.formError = "All fields required, please try again";
+          return false;
+        } else {
+          vm.formError = ""; // Reset the formError property
+          vm.doLogin();
+        }
+      };
 
     vm.doLogin = function() {
       console.log("DoLogin Ran");
@@ -123,14 +124,15 @@ app.controller('RegisterController', ['$location', 'authentication', function Re
     };
 
     vm.onSubmit = function () {
-      vm.formError = "";
-      if (!vm.credentials.name || !vm.credentials.email || !vm.credentials.password) {
-        vm.formError = "All fields required, please try again";
-        return false;
-      } else {
-        vm.doRegister();
-      }
-    };
+        vm.formError = "";
+        if (!vm.credentials.name || !vm.credentials.email || !vm.credentials.password) {
+          vm.formError = "All fields required, please try again";
+          return false;
+        } else {
+          vm.formError = ""; // Reset the formError property
+          vm.doRegister();
+        }
+      };
 
     vm.doRegister = function() {
       vm.formError = "";
