@@ -32,18 +32,6 @@ app.config(function($routeProvider) {
         controller: 'DeleteController',
         controllerAs: 'vm'
       })
-
-      .when('/register', {
-        templateUrl: '/auth/register.view.html',
-        controller: 'RegisterController',
-        controllerAs: 'vm'
-      })
-  
-      .when('/signOn', {
-        templateUrl: '/auth/login.view.html',
-        controller: 'LoginController',
-        controllerAs: 'vm'
-      })
   
       .otherwise({redirectTo: '/'});
   });
@@ -57,24 +45,17 @@ app.config(function($routeProvider) {
     return $http.get('/api/blogs/' + id);
   }
   
-  function addBlog($http, authentication, data) {
-    return $http.post('/api/blogs/add', data, { headers: { Authorization: 'Bearer '+ authentication.getToken() }} );
+  function addBlog($http, data) {
+    return $http.post('/api/blogs/add', data);
+        
+}
+  
+  function updateBlogById($http, id, data) {
+    return $http.put('/api/blogs/' + id, data);
   }
   
-  function updateBlogById($http, authentication, id, data) {
-    return $http.put('/api/blogs/' + id, data, { headers: { Authorization: 'Bearer '+ authentication.getToken() }} );
-  }
-  
-  function deleteBlogById($http, authentication, id) {
-    return $http.delete('/api/blogs/' + id, { headers: { Authorization: 'Bearer ' + authentication.getToken() } })
-        .then(function(response) {
-            console.log("Delete request successful:", response);
-            return response.data;
-        })
-        .catch(function(error) {
-            console.error("Error deleting blog:", error);
-            throw error;
-        });
+  function deleteBlogById($http, id) {
+    return $http.delete('/api/blogs/' + id);
   }
   
   //Controllers
@@ -103,7 +84,7 @@ app.config(function($routeProvider) {
         });
   });
   
-  app.controller('AddController', ['$http', '$location', 'authentication', function AddController($http, $location, authentication) {
+  app.controller('AddController', ['$http', '$location', function AddController($http, $location) {
     var vm = this;
     vm.blog = {
       blogtitle: '',
@@ -120,8 +101,8 @@ app.config(function($routeProvider) {
         blogtext: vm.blog.text
       };
   
-      addBlog($http, authentication, data)
-        .then(function (data) {
+      addBlog($http, data)
+        .then(function (addedBlog) {
             vm.blog = {};
             vm.message = "";
             $location.path('/blogs'); // Redirect to the blog list after successful addition
@@ -133,7 +114,7 @@ app.config(function($routeProvider) {
     };
 }]);
 
-app.controller('EditController', ['$http', '$routeParams', '$location', 'authentication', function EditController($http, $routeParams, $location, authentication) {
+app.controller('EditController', ['$http', '$routeParams', '$location', function EditController($http, $routeParams, $location) {
   var vm = this;
   vm.blog = {};
   vm.id = $routeParams.id;
@@ -155,7 +136,7 @@ app.controller('EditController', ['$http', '$routeParams', '$location', 'authent
 
   // Update the blog
   vm.submit = function() {
-      updateBlogById($http, authentication, vm.id, vm.blog)
+      updateBlogById($http, vm.id, vm.blog)
           .then(function(response) {
               vm.message = "";
               $location.path('/blogs'); // Redirect to the blog list after successful update
@@ -166,7 +147,7 @@ app.controller('EditController', ['$http', '$routeParams', '$location', 'authent
   };
 }]);
 
-app.controller('DeleteController', [ '$http', '$routeParams', '$location', 'authentication', function DeleteController($http, $routeParams, $location, authentication) {
+app.controller('DeleteController', [ '$http', '$routeParams', '$location', function DeleteController($http, $routeParams, $location) {
   var vm = this;
   vm.blog = {};
   vm.id = $routeParams.id;
@@ -185,7 +166,7 @@ app.controller('DeleteController', [ '$http', '$routeParams', '$location', 'auth
   });
 
   vm.submit = function() {
-    deleteBlogById($http,authentication, vm.id)
+    deleteBlogById($http, vm.id)
       .then(function() {
         $location.path('/blogs'); // Redirect to the blog list after successful deletion
       })

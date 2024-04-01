@@ -46,4 +46,3 @@ gracefulShutdown = function (msg, callback) {
   }); });
 
 require('./blogs');
-require('./users');
