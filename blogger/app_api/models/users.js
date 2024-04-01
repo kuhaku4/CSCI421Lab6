@@ -1,7 +1,11 @@
 var mongoose = require( 'mongoose' );
+mongoose.set('useNewUrlParser', true);    // Included to avoid warnings
+mongoose.set('useFindAndModify', false);  // Included to avoid warnings
+mongoose.set('useCreateIndex', true);     // Included to avoid warnings
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
+// Users Schema
 var userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -16,13 +20,16 @@ var userSchema = new mongoose.Schema({
   salt: String
 });
 
+// Methods for Users Schema
 userSchema.methods.setPassword = function(password){
   this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+  //this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');  // From the book - obsolete
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('base64');  
 };
 
 userSchema.methods.validPassword = function(password) {
-  var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+  //var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');  // From the book - obsolete
+  var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('base64');    
   return this.hash === hash;
 };
 
