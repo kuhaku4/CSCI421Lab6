@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ctrlBlogs = require('../controllers/blogs');
 require('dotenv').config();
-const crtlAuth = require('../controllers/authernticate');
+const crtlAuth = require('../controllers/authenticate');
 var jwt = require('express-jwt');
 
 var auth = jwt({
