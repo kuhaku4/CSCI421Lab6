@@ -3,7 +3,7 @@
 // app.directive('navigation', function() {
 //     return {
 //       restrict: 'EA',
-//       templateUrl: '/navigation.html',
+//       templateUrl: '/nav/navigation.html',
 //       controller: 'NavigationController',
 //       controllerAs: 'navvm'
 //     };

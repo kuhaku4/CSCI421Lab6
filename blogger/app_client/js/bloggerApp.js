@@ -58,7 +58,7 @@ app.config(function($routeProvider) {
   }
   
   function addBlog($http, authentication, data) {
-    return $http.post('/api/blogs/add', data, { headers: { Authorization: 'Bearer '+ authentication.getToken() }} );
+    return $http.post('/api/blogs/', data, { headers: { Authorization: 'Bearer '+ authentication.getToken() }} );
   }
   
   function updateBlogById($http, authentication, id, data) {
