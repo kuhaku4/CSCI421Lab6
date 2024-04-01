@@ -3,12 +3,10 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var ctrlBlogs = require('../controllers/blogs');
 require('dotenv').config();
-const crtlAuth = require('../controllers/authenticate');
-
 var auth = jwt({
     secret: process.env.JWT_SECRET,
     userProperty: 'payload'
-});
+  });
 
 router.get('/blogs', ctrlBlogs.blogsList);
 
