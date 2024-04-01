@@ -3,7 +3,7 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var ctrlBlogs = require('../controllers/blogs');
 require('dotenv').config();
-const crtlAuth = require('../controllers/authMiddleware');
+const crtlAuth = require('../controllers/authenticate');
 
 var auth = jwt({
     secret: process.env.JWT_SECRET,
@@ -20,8 +20,8 @@ router.put('/blogs/:blogid', auth, ctrlBlogs.blogsUpdate);
 
 router.delete('/blogs/:blogid', auth, ctrlBlogs.blogsDelete);
 
-router.post('register', crtlAuth.register);
+router.post('/register', crtlAuth.register);
 
-router.post('login', crtlAuth.login);
+router.post('/login', crtlAuth.login);
 
 module.exports = router;
