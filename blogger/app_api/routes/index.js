@@ -12,7 +12,7 @@ var auth = jwt({
 
 router.get('/blogs', ctrlBlogs.blogsList);
 
-router.post('/blogs', auth, ctrlBlogs.blogsCreate);
+router.post('/blogs/add', auth, ctrlBlogs.blogsCreate);
 
 router.get('/blogs/:blogid', ctrlBlogs.blogsReadOne);
 
