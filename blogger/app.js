@@ -6,6 +6,7 @@ var logger = require('morgan');
 var passport = require('passport');
 require('./app_api/models/db');
 require('./app_api/config/passport');
+require('dotenv').config();
 
 
 //var routes = require('./app_server/routes/index');
