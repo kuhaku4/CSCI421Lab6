@@ -22,21 +22,22 @@ module.exports.register = function(req, res) {
 
   user.setPassword(req.body.password);
 
-  user.save(function(err) {
-    var token;
-    if (err) {
+  user.save() 
+    .then(() => {
+      // Log in the user after registration
+      req.body.email = req.body.email; 
+      req.body.password = req.body.password;
+      module.exports.login(req, res); 
+    })
+    .catch(err => {
       sendJSONresponse(res, 404, err);
-    } else {
-      token = user.generateJwt();
-      sendJSONresponse(res, 200, {
-        "token" : token
-      });
-    }
-  });
-
+    });
 };
 
+
 module.exports.login = function(req, res) {
+  console.log("Login request received:", req.body.email); 
+
   if(!req.body.email || !req.body.password) {
     sendJSONresponse(res, 400, {
       "message": "All fields required"
@@ -44,7 +45,8 @@ module.exports.login = function(req, res) {
     return;
   }
 
-  passport.authenticate('local', function(err, user, info){
+  passport.authenticate('local', function(err, user, info) {
+    console.log("Passport authentication result:", err, user, info);
     var token;
 
     if (err) {
@@ -52,11 +54,16 @@ module.exports.login = function(req, res) {
       return;
     }
 
-    if(user){
-      token = user.generateJwt();
-      sendJSONresponse(res, 200, {
-        "token" : token
-      });
+    if (user) {
+      user.generateJwt()
+        .then(token => {
+          sendJSONresponse(res, 200, {
+            "token": token
+          });
+        })
+        .catch(err => {
+          sendJSONresponse(res, 500, err);
+        });
     } else {
       sendJSONresponse(res, 401, info);
     }
