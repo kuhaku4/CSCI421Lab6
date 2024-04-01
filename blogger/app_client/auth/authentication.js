@@ -94,20 +94,17 @@ app.controller('LoginController', ['$location', 'authentication', function Login
         }
       };
 
-    vm.doLogin = function() {
-      console.log("DoLogin Ran");
-      vm.formError = "";
-      authentication
-        .login(vm.credentials)
-        .then(function(){
-          $location.path('blogs');
-        }
-        , (function(err){
-          var obj = err;
-          console.log(obj.message);
-          vm.formError = "Login failed. Email or password maybe incorrect.";
-        }));
-    };
+      vm.doLogin = function() {
+        vm.formError = "";
+        authentication
+          .login(vm.credentials)
+          .then(function(){
+            $location.path('blogs');
+          }
+          , (function(err){
+            vm.formError = "Login failed. Email or password maybe incorrect.";
+          }));
+      };
  }]);
 
 app.controller('RegisterController', ['$location', 'authentication', function RegisterController($location, authentication) {
@@ -134,17 +131,17 @@ app.controller('RegisterController', ['$location', 'authentication', function Re
         }
       };
 
-    vm.doRegister = function() {
-      vm.formError = "";
-      authentication
-        .register(vm.credentials)
-        .then(function(){
-          $location.path('blogs');
-        }
-        , (function(err){
-          vm.formError = "Error registering. Try again with a different email address."
-        }));
-    };
+      vm.doRegister = function() {
+        vm.formError = "";
+        authentication
+          .register(vm.credentials)
+          .then(function(){
+            $location.path('blogs');
+          }
+          , (function(err){
+            vm.formError = "Error registering. Try again with a different email address."
+          }));
+      };
 
 
 }]);
