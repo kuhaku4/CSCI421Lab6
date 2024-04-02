@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+require('dotenv').config();
 var ctrlBlogs = require('../controllers/blogs');
 var ctrlAuth = require('../controllers/authentication');
 var jwt = require('express-jwt');
